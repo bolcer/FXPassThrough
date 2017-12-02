@@ -59,7 +59,7 @@ I am trying to see the major steps for the analysis:
 8. Take only depreciating periods.
 9. See what is the mean value for the depreciation periods for *FxPassThrough*.
 
-### Basic Expected Outputs from Project
+### Expected Outputs from Project
 
 1. The plot of *FxPassThrough* trend over the time.
 2. Average *FxPass Through* value for the depreciation periods.
