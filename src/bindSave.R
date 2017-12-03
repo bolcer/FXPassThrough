@@ -9,13 +9,13 @@ args = commandArgs(trailingOnly=TRUE)
 
 cpi_index <- read_csv(args[1])
 
-write_csv(fx_cpi_dataM,"bin/cpi_index")
+write_csv(cpi_index,"data/cpi_index")
 
 colnames(cpi_index)[which(colnames(cpi_index) %in% c("Value") )] <- c("cpi_index")
 
 fx_rate <- read_csv(args[2])
 
-write_csv(fx_cpi_dataM,"bin/fx_rate")
+write_csv(fx_rate,"data/fx_rate")
 
 colnames(fx_rate)[which(colnames(fx_rate) %in% c("Value") )] <- c( "FxRate")
 
@@ -23,5 +23,4 @@ fx_cpi_dataM <- inner_join(fx_rate,cpi_index)
 
 fx_cpi_dataM <- fx_cpi_dataM %>% arrange(Date)
 
-write_csv(fx_cpi_dataM,paste0("res/",args[3]))
-
+write_csv(fx_cpi_dataM,paste0("data/",args[3]))
