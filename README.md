@@ -8,7 +8,8 @@ I will try to examine to see [the myth of EM FX pass-through](http://www.ashmore
 
 The phenamenon is generally formulated with the following [regression formula](https://en.wikipedia.org/wiki/Exchange-rate_pass-through#cite_note-Campa_goldberg-2): 
 
-$$ \Delta \ln p_{t} = \alpha + \sum_{i=0}^{N} \gamma_{i}\Delta e_{t-1} + \delta\Delta \ln c_{t} + \psi \Delta \ln d_{t} + \epsilon_{t} $$
+![](from_joe/regression_formula.png)
+
 
 where
 
@@ -16,7 +17,7 @@ where
 - e is the exchange rate 
 - c is marginal costs 
 - d is demand
-- $\Delta$ denotes the difference.
+- Delta sign denotes the difference.
 
 If you want an academic level analysis of the phenomenon. [Here](http://www.bankofcanada.ca/wp-content/uploads/2015/10/dp2015-91.pdf), you can find an interesting paper from Bank of Canada examines exchange rate pass-through due to the depreciation of Canadian Dollar against US Dollar in previous years.
 
@@ -68,15 +69,12 @@ I am trying to see the major steps for the analysis:
 
 If I will assume the model as simple as, 
 
-$\ln(cpi_{t}) = \beta_0 + \beta_{1}* \ln (FXrate_{t-1})+\epsilon$ 
-
-where $\beta_1$ is the *FxPassThrough* that I am looking for.
+![](from_joe/assumed_model.png)
 
 I will simplify the phenamenon and try to examine with the following basic formula:
 
-$$FxPassThrough_{t} = \frac{cpi_{t}}{cpi_{t-1}} * \frac{FXrate_{t-2}}{FXrate_{t-1}} $$
 
-where $fxChange = \frac{FXrate_{t}}{FXrate_{t-1}} - 1 > 0$ to have only the Turkish Lira is depreciated.
+![](from_joe/my_pass_formula.png)
 
 For the future expansion of the analysis,
 
