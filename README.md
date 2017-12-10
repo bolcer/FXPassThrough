@@ -31,11 +31,6 @@ Quandl enables us to reach these public data in CSV format.
 
 - The CPI inflation data is from [Central Bank of Turkish Republic](https://www.quandl.com/api/v3/datasets/CBRT/TP_FG_TG01.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly) available on Quandle.
 
-
-After I get the data for both Foreign Exchange Rate and Consumer Price Index, I bind them into one dataset to be able to play with it.
-
-My ultimate aim is to make to have an analysis structure works with any data in the specified structure.
-
 ## Objectives
 
 - Does FX rate depreciation have an effect on consumer prices?
@@ -45,44 +40,80 @@ My ultimate aim is to make to have an analysis structure works with any data in 
 
 I believe FX rate depreciation has a positive effect on consumer prices for the depreciation periods. I will try to see what is the level for Turkey in the period between 2005 and 2017 when Turkish Lira depreciated against US Dollars. 
 
-
-##  Steps for the Project:
-
-I am trying to see the major steps for the analysis:
-
-1. Save the FxRate and CPI data from web source
-2. Join these datasets into single dataset
-3. Make sure to have `date` is the increasing order in the dataset.
-4. Create new variables for CPI and FxRate changes.
-5. Create FxPassThrough variable.
-6. Plot the FxPassThrough trend over the period of time. 
-7. Filter the FxPassThrough variable to prevent failure due to infinity 
-8. Take only depreciating periods.
-9. See what is the mean value for the depreciation periods for *FxPassThrough*.
-
-### Expected Outputs from Project
-
-1. The plot of *FxPassThrough* trend over the time.
-2. Average *FxPass Through* value for the depreciation periods.
-
 ## Analysis
 
-If I will assume the model as simple as, 
+I used tried linear regression model to see the association between foreign exchange pass through and consumer price inflation. I performed linear model in both for all periods and for only periods TRY has depreciated against USD. 
 
-![](from_joe/assumed_model.png)
+## Running the Analysis
 
-I will simplify the phenamenon and try to examine with the following basic formula:
+### Scripts for Analysis
+
+- `SaveClean.R` is the script for saving cpi and fx rate data from different sources. It binds them into one dataset and cleans it before making analysis. It takes three arguments two of which is input files/address for cpi and fx_rate and the last one is output for combined clean data.
+
+- `Analysis.R` is the script for analysis. It takes combined clean data from `SaveClean.R`. It produces the linear model results into a txt file as output.
+
+- `Graphs.R` takes combined clean data from `SaveClean.R`. It produces two trend plots as output files. One plot is for all the periods, and the other one is specifically for depreciation periods.
+
+- `Project_Report.Rmd` takes output plots and output linearmodel results from txt file which is produced by `Analysis.R`. It also present the raw data. 
+
+Steps to do the analysis:
+
+You need to be at the root directory of the project at your Terminal. Then, you need to run the following steps.
+
+1. **Run `SaveClean.R` script**
+
+`Rscript src/SaveClean.R "https://www.quandl.com/api/v3/datasets/CBRT/TP_FG_TG01.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly" "https://www.quandl.com/api/v3/datasets/BOE/XUMLBK75.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly" allData`
+
+First two http addresses are for input data.
+
+**input data file for CPI** : "https://www.quandl.com/api/v3/datasets/CBRT/TP_FG_TG01.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly" 
+
+which can be found under `data` directory
+
+**input data file for FX_rate** : "https://www.quandl.com/api/v3/datasets/BOE/XUMLBK75.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly"
+  
+which can be found under `data` directory
+
+**output data combined data** : allData 
+
+which will be saved under `results` directory
 
 
-![](from_joe/my_pass_formula.png)
+2.**Run `Analysis.R` script**
 
-For the future expansion of the analysis,
+`Rscript src/Analysis.R results/allData linearModelResults`
 
-1. I can test the statistical significance of the **FxPassThrough** value my model.
-2. Then, I would perform analysis on a more complicated model.  
+It will take `allData` which is the output of `SaveClean.R`. 
+
+It will produce `linearModelResults.txt` file under `results` directory.
 
 
+3.**Run `Graphs.R` script**
 
+`Rscript src/Graphs.R results/allData Trend`
+
+It will take `allData` which is the output of `SaveClean.R`. 
+
+It will produce `Trend.png` and `TrendDeplation.png` plots under `results/figures` directory.
+
+
+4. **create report** by Running `Project_Report.Rmd`
+
+`Rscript -e 'ezknitr::ezknit("src/Project_Report.Rmd", out_dir = "docs")'`
+
+Run the command above. It will produce Project_Report reportn in .html and .md formats at `docs` directory.
+
+### Shortcut to run scripts: `run_all.sh`
+
+You can also run `run_all.sh` at root directory to make the previous steps at once. It can be used by changing the input data for different analysis.
+
+
+## Dependencies
+
+It is a R language project. You will need to have the following packages.
+
+- Tidyverse
+- Ezknit
 
 ## Author
 
