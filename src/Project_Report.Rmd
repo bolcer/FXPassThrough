@@ -1,0 +1,115 @@
+---
+title: "Project report"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Background and Theory
+
+I will try to examine to see [the myth of EM FX pass-through](http://www.ashmoregroup.com/sites/default/files/article-docs/EV%20Mar%202017.pdf). Below you can see the definition of *FX pass through* from Ashmore's Article:
+
+*One of the common perceptions about emerging markets (EMs) is that inflation rises sharply when currencies weaken, because weaker currencies push up domestic prices of imported goods and services. This phenomenon has a name: FX pass-through.*
+
+The phenamenon is generally formulated with the following [regression formula](https://en.wikipedia.org/wiki/Exchange-rate_pass-through#cite_note-Campa_goldberg-2): 
+
+$$ \Delta \ln p_{t} = \alpha + \sum_{i=0}^{N} \gamma_{i}\Delta e_{t-1} + \delta\Delta \ln c_{t} + \psi \Delta \ln d_{t} + \epsilon_{t} $$
+
+![](from_joe/regression_formula.png)
+
+
+where
+
+- p is import price, 
+- e is the exchange rate 
+- c is marginal costs 
+- d is demand
+- $\Delta$ sign denotes the difference.
+
+If you want an academic level analysis of the phenomenon. [Here](http://www.bankofcanada.ca/wp-content/uploads/2015/10/dp2015-91.pdf), you can find an interesting paper from Bank of Canada examines exchange rate pass-through due to the depreciation of Canadian Dollar against US Dollar in previous years.
+
+## Data
+
+I use monthly data from 2005 to 2017 on Turkish Lira against US Dollar (USDTRY) and Consumer Price Index. 
+
+Quandl enables us to reach these public data in CSV format.
+
+- The Foreign Exchange Rate (USDTRY) data is from [Bank of England](https://www.quandl.com/api/v3/datasets/BOE/XUMLBK75.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly) available on Quandle.
+
+
+```{r, include=FALSE}
+library(tidyverse)
+fx_rate <- read_csv("data/fx_rate")
+cpi_index <- read_csv("data/cpi_index")
+```
+
+```{r,warning=FALSE,message=FALSE}
+head(fx_rate)
+```
+
+- The CPI inflation data is from [Central Bank of Turkish Republic](https://www.quandl.com/api/v3/datasets/CBRT/TP_FG_TG01.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly) available on Quandle.
+
+```{r,warning=FALSE,message=FALSE}
+head(cpi_index)
+```
+
+After I get the data for both Foreign Exchange Rate and Consumer Price Index, I bind them into one dataset to be able to play with it.
+
+My ultimate aim is to make to have an analysis structure works with any data in the specified structure.
+
+## Objectives
+
+- Does FX rate depreciation have an effect on consumer prices?
+- If there is an effect, what is the mean FxPassThrough value for the depreciation periods?
+
+## Hypothesis
+
+I believe FX rate depreciation has a positive effect on consumer prices for the depreciation periods. I will try to see what is the level for Turkey in the period between 2005 and 2017 when Turkish Lira depreciated against US Dollars. 
+
+
+## Exhange Rate Pass-through in Turkey over time(2005-2017):
+
+![alt tag](../results/figures/Trend)
+
+This trend  
+
+I will use the model below which is also used in [Pimco's report](https://www.pimco.com/handlers/displaydocument.ashx?wd=Insight&id=IPTTwLZx6SCF6y4wkZDwSakLUrqhdMLIng4oyN6u0%2BzYm7UoXwKqIMiTO%2B5oXQGLO%2Fji9Ek8ekAiYIt96KRO8BM%2BltZKiu0Pgson5daY6DegSCAIFA3S4VEva2MnNz7G7vE7VcHA0h2rvKbRUhbvMzHkxSO%2B7t4MbO8FuzC6KXxVS7ZEBQjo5TYmzq6pRDIu4qB46eThoKubIj%2BQcAPHDlMQZFuspjbVnVXm6X5ROXVJV80pf7phrKzNkxomPas7c5DHakNe7RqGlSPOjRIttm%2B%2F%2FObvbCQrbCdAU%2BUfDysrgGJucp7tQ5xnsmA0twO52ToZDTppx9AVI8xYu%2FfGBQ%3D%3D):
+
+$cpi_{t} = \beta_0 + \beta_{1}* FXrate_{t-1} + \beta_{2}* FXrate_{t} + \beta_{3}* FXrate_{t-1}+\epsilon$ 
+
+which is the first model in the below.
+
+```{r, echo=FALSE}
+#head(readtext("results/avgFxP"))
+#paste(scan("results/avgFxP", what="character", sep=" "),collapse=" ")
+#scan("results/avgFxP", what="character", sep=" ")
+
+fileName <- "results/avgFxP.txt"
+conn <- file(fileName,open="r")
+linn <-readLines(conn)
+for (i in 1:length(linn)){
+   print(linn[i])
+}
+close(conn)
+```
+
+The regression result on general data shows us the change in exchange rate in both `t-1` and `t` do not have significant affect on consumer price inflation. In this data, we cannot find enough evidence to believe any relationship between exchange rate and consumer price index. 
+
+However, our hypothesis is if the exchange rate shocks does any affect on the consumer price index. Therefore we should use the following regression for the periods where `fx_change` is bigger than zero which means where Turkish Lira depreciated agaings US Dollars.
+
+$cpi_{t} = \beta_0 + \beta_{1}*  + \beta_{2}* fxchange_{t} +\epsilon$ 
+
+$fxchange = \frac{FXrate_{t}}{FXrate_{t-1}}-1$ 
+
+Here, you can see the trend for depreciation periods:
+
+![alt tag](../results/figures/TrendDepreciation)
+ 
+This is the second linear model results above, and it gives significant result for FX change. It means have enough evidence to believe FX losses has affect on the local currency TRY depreciate against a major currency such as USD.
+
+For the future analysis, it can be better to examine the inflation spread with US would be better variable since we can elaminate the US inflation affect on exchange rate. 
+
+Another assignment would be to use more complicated model like the one shown in the introduction.
