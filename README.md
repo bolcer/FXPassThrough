@@ -48,17 +48,17 @@ I used tried linear regression model to see the association between foreign exch
 
 ### Scripts for Analysis
 
-- `SaveClean.R` is the script for saving cpi and fx rate data from different sources. It binds them into one dataset and cleans it before making analysis. It takes three arguments two of which is input files/address for cpi and fx_rate and the last one is output for combined clean data.
+- `SaveClean.R` is the script for saving cpi and fx rate data from different sources. It binds them into one dataset and cleans it before making the analysis. It takes three arguments two of which is input files/address for cpi and fx_rate and the last one is output for combined clean data.
 
 - `Analysis.R` is the script for analysis. It takes combined clean data from `SaveClean.R`. It produces the linear model results into a txt file as output.
 
 - `Graphs.R` takes combined clean data from `SaveClean.R`. It produces two trend plots as output files. One plot is for all the periods, and the other one is specifically for depreciation periods.
 
-- `Project_Report.Rmd` takes output plots and output linearmodel results from txt file which is produced by `Analysis.R`. It also present the raw data. 
+- `Project_Report.Rmd` takes output plots and output linear model results from txt file which is produced by `Analysis.R`. It also presents the raw data. 
 
 Steps to do the analysis:
 
-You need to be at the root directory of the project at your Terminal. Then, you need to run the following steps.
+You need to be in the root directory of the project at your Terminal. Then, you need to run the following steps.
 
 1. **Run `SaveClean.R` script**
 
@@ -101,7 +101,7 @@ It will produce `Trend.png` and `TrendDeplation.png` plots under `results/figure
 
 `Rscript -e 'ezknitr::ezknit("src/Project_Report.Rmd", out_dir = "docs")'`
 
-Run the command above. It will produce Project_Report reportn in .html and .md formats at `docs` directory.
+Run the command above. It will produce Project_Report report in .html and .md formats at `docs` directory.
 
 ### Shortcut to run scripts: `run_all.sh`
 
@@ -110,7 +110,7 @@ You can also run `run_all.sh` at root directory to make the previous steps at on
 
 ## Dependencies
 
-It is a R language project. You will need to have the following packages.
+It is an R language project. You will need to have the following packages.
 
 - Tidyverse
 - Ezknit

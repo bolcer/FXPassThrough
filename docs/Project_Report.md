@@ -148,9 +148,9 @@ which is the first model in the below.
 ## [1] ""
 ```
 
-The regression result on general data shows us the change in exchange rate in both `t-1` and `t` do not have significant affect on consumer price inflation. In this data, we cannot find enough evidence to believe any relationship between exchange rate and consumer price index. 
+The regression result on general data shows us the change in the exchange rate in both `t-1` and `t` do not have a significant affect on consumer price inflation. In this data, we cannot find enough evidence to believe any relationship between exchange rate and consumer price index. 
 
-However, our hypothesis is if the exchange rate shocks does any affect on the consumer price index. Therefore we should use the following regression for the periods where `fx_change` is bigger than zero which means where Turkish Lira depreciated agaings US Dollars.
+However, our hypothesis is if the exchange rate shocks have any affect on the consumer price index. Therefore we should use the following regression for the periods where `fx_change` is bigger than zero which means where Turkish Lira depreciated against US Dollars.
 
 $cpi_{t} = \beta_0 + \beta_{1}*  + \beta_{2}* fxchange_{t} +\epsilon$ 
 
@@ -160,14 +160,14 @@ Here, you can see the trend for depreciation periods:
 
 ![alt tag](../results/figures/TrendDepreciation)
 
-This graph confirms the 0.046 at linear model result for `fx_change` onto `cpi`. We can say `pass_through` will be around 0.5 for depreciation period which makes sense as we define pass_through as `cpi/fx_change`.  
+This graph confirms the 0.046 at the linear model result for `fx_change` onto `cpi`. We can say `pass_through` will be around 0.5 for depreciation period which makes sense as we define pass_through as `cpi/fx_change`.  
  
-This is the second linear model results above, and it gives significant result for FX change. It means we have enough evidence to believe FX losses has affect on the local currency TRY depreciate against a major currency such as USD. 
+This is the second linear model results above, and it gives a significant result for FX change. It means we have enough evidence to believe "FX losses has affect on the local currency TRY" to depreciate against a major currency such as USD. 
 
-It is a very primitive analysis to see the affect of foreign exchange losses on a developing countries consumer price index. But, luckily we have significant result to encourage us for further analyses.
+It is a very primitive analysis to see the affect of foreign exchange losses on a developing countries consumer price index. But, luckily we have a significant result to encourage us for further analyses.
 
 ## Future Analyses
 
-For the future analysis, it can be better to examine the inflation spread with US would be better variable since we can elaminate the US inflation affect on exchange rate. 
+For the future analysis, it can be better to examine the inflation spread with the US would be better variable since we can eliminate the US inflation effect on the exchange rate. 
 
-Another assignment would be to use more complicated model like the one shown in the introduction.
+Another assignment would be to use a more complicated model like the one shown in the introduction.
