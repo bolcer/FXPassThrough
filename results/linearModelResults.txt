@@ -1,0 +1,43 @@
+
+Call:
+lm(formula = cpi ~ lag(cpi) + fx_change + lag(fx_change), data = all_data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.024173 -0.004918 -0.001419  0.005480  0.025625 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    0.0055270  0.0008763   6.307 3.77e-09 ***
+lag(cpi)       0.1439081  0.0853558   1.686   0.0941 .  
+fx_change      0.0115855  0.0164674   0.704   0.4829    
+lag(fx_change) 0.0132264  0.0164795   0.803   0.4236    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.007761 on 135 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.03135,	Adjusted R-squared:  0.009822 
+F-statistic: 1.456 on 3 and 135 DF,  p-value: 0.2294
+
+
+Call:
+lm(formula = cpi ~ lag(cpi) + fx_change, data = deflation_data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.009664 -0.005367 -0.001947  0.004435  0.016125 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.007869   0.001724   4.564 2.86e-05 ***
+lag(cpi)    -0.106240   0.131530  -0.808   0.4227    
+fx_change    0.046748   0.022519   2.076   0.0426 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.00657 on 55 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.0925,	Adjusted R-squared:  0.0595 
+F-statistic: 2.803 on 2 and 55 DF,  p-value: 0.06931
+

@@ -3,9 +3,7 @@ title: "Project report"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 
 ## Background and Theory
@@ -40,20 +38,42 @@ Quandl enables us to reach these public data in CSV format.
 - The Foreign Exchange Rate (USDTRY) data is from [Bank of England](https://www.quandl.com/api/v3/datasets/BOE/XUMLBK75.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly) available on Quandle.
 
 
-```{r, include=FALSE}
-library(tidyverse)
-fx_rate <- read_csv("data/fx_rate")
-cpi_index <- read_csv("data/cpi_index")
+
+
+
+```r
+head(fx_rate)
 ```
 
-```{r,warning=FALSE,message=FALSE}
-head(fx_rate)
+```
+## # A tibble: 6 x 2
+##         Date  Value
+##       <date>  <dbl>
+## 1 2017-11-30 3.9050
+## 2 2017-10-31 3.7979
+## 3 2017-09-30 3.5563
+## 4 2017-08-31 3.4528
+## 5 2017-07-31 3.5237
+## 6 2017-06-30 3.5210
 ```
 
 - The CPI inflation data is from [Central Bank of Turkish Republic](https://www.quandl.com/api/v3/datasets/CBRT/TP_FG_TG01.csv?api_key=tPKkRzbE46iPtm71hJM8&collapse=monthly) available on Quandle.
 
-```{r,warning=FALSE,message=FALSE}
+
+```r
 head(cpi_index)
+```
+
+```
+## # A tibble: 6 x 2
+##         Date  Value
+##       <date>  <dbl>
+## 1 2016-12-31 292.54
+## 2 2016-11-30 287.81
+## 3 2016-10-31 286.33
+## 4 2016-09-30 282.27
+## 5 2016-08-31 281.76
+## 6 2016-07-31 282.58
 ```
 
 After I get the data for both Foreign Exchange Rate and Consumer Price Index, I bind them into one dataset to be able to play with it.
@@ -81,18 +101,51 @@ $cpi_{t} = \beta_0 + \beta_{1}* FXrate_{t-1} + \beta_{2}* FXrate_{t} + \beta_{3}
 
 which is the first model in the below.
 
-```{r, echo=FALSE}
-#head(readtext("results/avgFxP"))
-#paste(scan("results/avgFxP", what="character", sep=" "),collapse=" ")
-#scan("results/avgFxP", what="character", sep=" ")
 
-fileName <- "results/linearModelResults.txt"
-conn <- file(fileName,open="r")
-linn <-readLines(conn)
-for (i in 1:length(linn)){
-   print(linn[i])
-}
-close(conn)
+```
+## [1] ""
+## [1] "Call:"
+## [1] "lm(formula = cpi ~ lag(cpi) + fx_change + lag(fx_change), data = all_data)"
+## [1] ""
+## [1] "Residuals:"
+## [1] "      Min        1Q    Median        3Q       Max "
+## [1] "-0.024173 -0.004918 -0.001419  0.005480  0.025625 "
+## [1] ""
+## [1] "Coefficients:"
+## [1] "                Estimate Std. Error t value Pr(>|t|)    "
+## [1] "(Intercept)    0.0055270  0.0008763   6.307 3.77e-09 ***"
+## [1] "lag(cpi)       0.1439081  0.0853558   1.686   0.0941 .  "
+## [1] "fx_change      0.0115855  0.0164674   0.704   0.4829    "
+## [1] "lag(fx_change) 0.0132264  0.0164795   0.803   0.4236    "
+## [1] "---"
+## [1] "Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
+## [1] ""
+## [1] "Residual standard error: 0.007761 on 135 degrees of freedom"
+## [1] "  (1 observation deleted due to missingness)"
+## [1] "Multiple R-squared:  0.03135,\tAdjusted R-squared:  0.009822 "
+## [1] "F-statistic: 1.456 on 3 and 135 DF,  p-value: 0.2294"
+## [1] ""
+## [1] ""
+## [1] "Call:"
+## [1] "lm(formula = cpi ~ lag(cpi) + fx_change, data = deflation_data)"
+## [1] ""
+## [1] "Residuals:"
+## [1] "      Min        1Q    Median        3Q       Max "
+## [1] "-0.009664 -0.005367 -0.001947  0.004435  0.016125 "
+## [1] ""
+## [1] "Coefficients:"
+## [1] "             Estimate Std. Error t value Pr(>|t|)    "
+## [1] "(Intercept)  0.007869   0.001724   4.564 2.86e-05 ***"
+## [1] "lag(cpi)    -0.106240   0.131530  -0.808   0.4227    "
+## [1] "fx_change    0.046748   0.022519   2.076   0.0426 *  "
+## [1] "---"
+## [1] "Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
+## [1] ""
+## [1] "Residual standard error: 0.00657 on 55 degrees of freedom"
+## [1] "  (1 observation deleted due to missingness)"
+## [1] "Multiple R-squared:  0.0925,\tAdjusted R-squared:  0.0595 "
+## [1] "F-statistic: 2.803 on 2 and 55 DF,  p-value: 0.06931"
+## [1] ""
 ```
 
 The regression result on general data shows us the change in exchange rate in both `t-1` and `t` do not have significant affect on consumer price inflation. In this data, we cannot find enough evidence to believe any relationship between exchange rate and consumer price index. 
