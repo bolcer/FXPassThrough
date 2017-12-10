@@ -87,7 +87,7 @@ which is the first model in the below.
 #paste(scan("results/avgFxP", what="character", sep=" "),collapse=" ")
 #scan("results/avgFxP", what="character", sep=" ")
 
-fileName <- "results/avgFxP.txt"
+fileName <- "results/linearModelResults.txt"
 conn <- file(fileName,open="r")
 linn <-readLines(conn)
 for (i in 1:length(linn)){
