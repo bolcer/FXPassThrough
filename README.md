@@ -60,9 +60,17 @@ You need to be in the root directory of the project at your Terminal. Then, you 
 
 ### Makefile:
 
-From your terminal, run `make all` at root directory to make the previous steps at once. The makefile can be used by changing the input data for different analyses.
+From your terminal, you can run `make all` at root directory to make the previous steps at once. The makefile can be used by changing the input data for different analyses.
 
-If `make all` does not work, you may need to use `make clean` to clean the files first. Then, `make all` will create the files again for you.
+To run all scripts:
+
+`make all`
+
+To clean all intermediate files:
+
+`make clean`
+
+If `make all` does not work, you may first need to use `make clean` to clean the files. Then, `make all` will create the files again for you.
 
 #### Makefile dependency structure
 
@@ -84,6 +92,16 @@ Docker image for the project can be found at [https://hub.docker.com/r/cemsinan/
 If you can to run the project from a Docker container. You can pull the project with following command:
 
 `docker pull cemsinan/fx_pass_through`
+
+You also need to `git clone` the this project from Github to a `<local-path-to-project-repository>`.
+
+To run make all through Docker:
+
+`docker run --rm -v <local-path-to-project-repository>/BC-motor-vehicle-incidents:cemsinan/fx_pass_through make -C '/cemsinan/fx_pass_through' all`
+
+To run make clean through Docker:
+
+`docker run --rm -v <local-path-to-project-repository>/BC-motor-vehicle-incidents:cemsinan/fx_pass_through make -C '/cemsinan/fx_pass_through' clean`
  
 ## Author
 
