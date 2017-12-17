@@ -60,7 +60,11 @@ You need to be in the root directory of the project at your Terminal. Then, you 
 
 ### Makefile:
 
-From your terminal, you can run `make all` at root directory to make the previous steps at once. The makefile can be used by changing the input data for different analyses.
+Clone the repo:
+
+``git clone https://github.com/cemsinano/FX_Pass_Through.git`
+
+From your terminal, you can run `make all` at root directory of the project to make the previous steps at once. The makefile can be used by changing the input data for different analyses.
 
 To run all scripts:
 
@@ -78,12 +82,22 @@ If `make all` does not work, you may first need to use `make clean` to clean the
 
 You can see the dependency structure the makefile has, and which files are runned. 
 
-## Package Dependencies
+## Packrat
 
-It is an R language project. You will need to have the following packages.
+If you do not want to install all the dependencies, and you only need `packrat`.  After you have `packrat`.
 
-- Tidyverse (it is actually a package universe)
-- Ezknit
+Clone the repo:
+
+`git clone https://github.com/cemsinano/FX_Pass_Through.git`
+
+Go to the root of the project.
+
+Open RProj file from your RStudio.
+
+You 
+
+
+
 
 ## Dockerfile
 
@@ -95,13 +109,52 @@ If you can to run the project from a Docker container. You can pull the project 
 
 You also need to `git clone` the this project from Github to a `<local-path-to-project-repository>`.
 
-To run make all through Docker:
+First clone it: 
 
-`docker run --rm -v <local-path-to-project-repository>/BC-motor-vehicle-incidents:cemsinan/fx_pass_through make -C '/cemsinan/fx_pass_through' all`
+`git clone https://github.com/cemsinano/FX_Pass_Through.git`
+
+I will show you running both interactively or non-interactively: 
+
+**You can run the makefile from Docker non-interactively:**
 
 To run make clean through Docker:
 
-`docker run --rm -v <local-path-to-project-repository>/BC-motor-vehicle-incidents:cemsinan/fx_pass_through make -C '/cemsinan/fx_pass_through' clean`
+`docker run --rm -v <local-path-to-project-repository>:cemsinan/fx_pass_through make -C '/cemsinan/fx_pass_through' clean`
+
+To run make all through Docker:
+
+`docker run --rm -v <local-path-to-project-repository>:cemsinan/fx_pass_through make -C '/cemsinan/fx_pass_through' all`
+
+
+ **If you want to run it interactively from Docker follow this steps after cloning the repo:** 
+
+Run the Docker image and link it to your local version of the repository:
+
+`docker run -it --rm -v <local-path-to-project-repository>:cemsinan/fx_pass_through cemsinan/fx_pass_through /bin/bash`
+
+From the root in the Docker container go to the project folder.
+
+`cd fx_pass_through`
+
+Then clean the existing intermediate files:
+
+`make clean`
+
+Create it again:
+
+`make all`
+ 
+## Package Dependencies
+
+It is an R language project. You will need to have the following packages. You also need RStudio.
+
+- Tidyverse (it is actually a package universe),Ezknit 
+- or Packrat
+
+You also need `make` to run the makefile.
+
+If you want to run the project over the Docker, then you will need Docker.
+
  
 ## Author
 
