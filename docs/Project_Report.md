@@ -16,7 +16,7 @@ The phenamenon is generally formulated with the following [regression formula](h
 
 $$ \Delta \ln p_{t} = \alpha + \sum_{i=0}^{N} \gamma_{i}\Delta e_{t-1} + \delta\Delta \ln c_{t} + \psi \Delta \ln d_{t} + \epsilon_{t} $$
 
-![](from_joe/regression_formula.png)
+![](../from_joe/regression_formula.png)
 
 
 where
